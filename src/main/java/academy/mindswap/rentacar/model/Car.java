@@ -5,26 +5,22 @@ import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@Builder
 @Entity
 @Table(name = "cars")
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column (nullable = false)
-    private String brand;
-    @Column (nullable = false)
-    private String model;
-/*
-    @Column (nullable = false)
-    private String year;
-    @Column (nullable = false, unique = true)
-    private String plate;
+    private Long id;
 
- */
+    @Column(nullable = false)
+    private String brand;
+
+    @Column(nullable = false)
+    private String model;
+
 }

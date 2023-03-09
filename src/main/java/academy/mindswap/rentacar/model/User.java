@@ -5,21 +5,29 @@ import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@Builder
 @Entity
 @Table(name = "users")
-
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column (nullable = false)
+    private Long id;
+
+    @Column(nullable = false)
     private String firstName;
-    @Column (nullable = false)
+
+    @Column(nullable = false)
     private String lastName;
-    @Column (nullable = false, unique = true)
+
+    @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String role;
 }

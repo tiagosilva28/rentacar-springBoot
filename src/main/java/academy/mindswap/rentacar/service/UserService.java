@@ -1,19 +1,20 @@
 package academy.mindswap.rentacar.service;
 
-import academy.mindswap.rentacar.model.User;
+import academy.mindswap.rentacar.dto.UserCreateDto;
+import academy.mindswap.rentacar.dto.UserDto;
 
 import java.util.List;
 
 public interface UserService {
-   // User getUser();
 
-    User createUser(User user);
+    UserDto createUser(UserCreateDto user);
 
-    User getUserById(Long userId);
+    UserDto getUserById(Long userId);
 
-    List<User> getAllUsers();
+    List<UserDto> getAllUsers();
 
-    User updateUser(User user);
+    UserDto updateUser(Long id, UserDto user);
+
 
     void deleteUser(Long userId);
 }
