@@ -3,6 +3,9 @@ package academy.mindswap.rentacar.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -30,4 +33,9 @@ public class User {
 
     @Column(nullable = false)
     private String role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) // for many to many
+    private List<Rental> rentals = new ArrayList<>();
+
+
 }
