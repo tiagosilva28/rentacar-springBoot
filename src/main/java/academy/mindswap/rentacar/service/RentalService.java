@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface RentalService {
 
-    RentalDto createRental(RentalCreateDto rental, User user, Car car);
+    RentalDto createRental(RentalCreateDto rental);
     RentalDto getRentalById(Long rentalId);
     List<RentalDto> getAllRental();
 

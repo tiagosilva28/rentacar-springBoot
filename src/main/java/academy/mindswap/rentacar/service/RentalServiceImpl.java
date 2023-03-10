@@ -17,11 +17,10 @@ public class RentalServiceImpl implements RentalService{
     RentalRepository rentalRepository;
     RentalConverter rentalConverter = new RentalConverter();
     @Override
-    public RentalDto createRental(RentalCreateDto rentalCreateDto, User user, Car car) {
-        user =
-        Rental rental = rentalConverter.fromRentalCreateDtoToEntity(rentalCreateDto, user);
+    public RentalDto createRental(RentalCreateDto rentalCreateDto) {
+        Rental rental = rentalConverter.fromRentalCreateDtoToEntity(rentalCreateDto, );
         rental = rentalRepository.save(rental);
-        return rentalConverter.fromRentalEntityToRentalDto(rental,car,user);
+        return rentalConverter.fromRentalEntityToRentalDto(rental);
     }
 
 
