@@ -1,5 +1,7 @@
 package academy.mindswap.rentacar.service;
 
+import academy.mindswap.rentacar.dto.CarCreateDto;
+import academy.mindswap.rentacar.dto.CarDto;
 import academy.mindswap.rentacar.model.Car;
 import academy.mindswap.rentacar.model.User;
 
@@ -8,13 +10,13 @@ import java.util.List;
 public interface CarService {
    // Car getCars();
 
-    Car createCar(Car car);
+    CarDto createCar(CarCreateDto car);
 
-    Car getCarById(Long userId);
+    CarDto getCarById(Long userId);
 
-    List<Car> getAllCars();
+    List<CarDto> getAllCars();
 
-    Car updateCar(Car car);
+    CarDto updateCar(Long id, CarDto car);
 
     void deleteCar(Long userId);
 }
