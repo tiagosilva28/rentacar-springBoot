@@ -18,9 +18,11 @@ import java.util.List;
 public class Rental {
 
     @ManyToMany(targetEntity = Car.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "rentals_cars",
+    /*@JoinTable(name = "rentals_cars",
             joinColumns = {@JoinColumn(name = "rental_id")},
             inverseJoinColumns = {@JoinColumn(name = "car_id")})
+
+     */
     private List<Long> carIds = new ArrayList<>();
 
 
