@@ -31,9 +31,10 @@ public class RentalServiceImpl implements RentalService{
         // obter cada car da base de dados
         // passar cars and user para converter
         User user = userRepository.getReferenceById(rentalCreateDto.getUserId());
-        List<Car> cars = carRepository.findAllById(rentalCreateDto.getCarIds());
+        List<Long> carIds = carRepository.findAllById(rentalCreateDto.getCarIds()).stream().map(cars -> cars.getId()).toList();
+        //List<Car> cars = carRepository.findAllById(rentalCreateDto.getCarIds());
 
-        Rental rental = rentalConverter.fromRentalCreateDtoToEntity(rentalCreateDto, cars, user);
+        Rental rental = rentalConverter.fromRentalCreateDtoToEntity(rentalCreateDto, carIds, user);
         rental = rentalRepository.save(rental);
         return rentalConverter.fromRentalEntityToRentalDto(rental);
     }
@@ -57,7 +58,7 @@ public class RentalServiceImpl implements RentalService{
     @Override
     public RentalDto updateRental(Long id, RentalDto rentalDto) {
         Rental rental = rentalRepository.getReferenceById(id);
-        rental.setCars(rentalDto.getCars());
+        rental.setCarIds(rentalDto.getCarIds());
         rental.setEndDate(rentalDto.getEndDate());
         rental.setEndDate(rentalDto.getEndDate());
         rentalRepository.save(rental);

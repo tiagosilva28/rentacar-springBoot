@@ -27,5 +27,5 @@ public class RentalDto {
     private Long user_id;
 
     @NotBlank(message = "You should have a End Date")
-    private List<Car> cars = new ArrayList<>();
+    private List<Long> carIds;
 }

@@ -15,6 +15,7 @@ public class RentalConverter {
                 .startDate(rental.getStartDate())
                 .endDate(rental.getEndDate())
                 .user_id(rental.getUser().getId())
+                .carIds(rental.getCarIds())
                 .build();
     }
 
@@ -23,15 +24,16 @@ public class RentalConverter {
                 .startDate(rentalDto.getStartDate())
                 .endDate(rentalDto.getEndDate())
                 .user(user)
+                .carIds(rentalDto.getCarIds())
                 .build();
     }
 
-    public Rental fromRentalCreateDtoToEntity(RentalCreateDto rentalCreateDto, List<Car> cars, User user){
+    public Rental fromRentalCreateDtoToEntity(RentalCreateDto rentalCreateDto, List<Long> carIds, User user){
         return Rental.builder()
                 .startDate(rentalCreateDto.getStartDate())
                 .endDate(rentalCreateDto.getEndDate())
                 .user(user)
-                .cars(cars)
+                .carIds(rentalCreateDto.getCarIds())
                 .build();
     }
 }

@@ -17,11 +17,11 @@ import java.util.List;
 @Table(name = "rentals")
 public class Rental {
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(targetEntity = Car.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "rentals_cars",
             joinColumns = {@JoinColumn(name = "rental_id")},
             inverseJoinColumns = {@JoinColumn(name = "car_id")})
-    private List<Car> cars = new ArrayList<>();
+    private List<Long> carIds = new ArrayList<>();
 
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
@@ -34,7 +34,7 @@ public class Rental {
     @Column(nullable = false)
     private LocalDate endDate;
 
-
+/*
     public void addCar(Car car) {
         this.cars.add(car);
         car.getRentals().add(this);
@@ -48,5 +48,7 @@ public class Rental {
         }
     }
 
+
+ */
 
 }
