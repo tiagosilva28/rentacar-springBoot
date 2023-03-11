@@ -55,9 +55,13 @@ public class RentalServiceImpl implements RentalService{
     }
 
     @Override
-    public RentalDto updateRental(Long id, RentalDto rental) {
-
-        return null;
+    public RentalDto updateRental(Long id, RentalDto rentalDto) {
+        Rental rental = rentalRepository.getReferenceById(id);
+        rental.setCars(rentalDto.getCars());
+        rental.setEndDate(rentalDto.getEndDate());
+        rental.setEndDate(rentalDto.getEndDate());
+        rentalRepository.save(rental);
+        return rentalConverter.fromRentalEntityToRentalDto(rental);
     }
 
     @Override
