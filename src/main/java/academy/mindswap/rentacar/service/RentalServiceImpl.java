@@ -3,26 +3,37 @@ package academy.mindswap.rentacar.service;
 import academy.mindswap.rentacar.converter.RentalConverter;
 import academy.mindswap.rentacar.dto.RentalCreateDto;
 import academy.mindswap.rentacar.dto.RentalDto;
-import academy.mindswap.rentacar.model.Car;
 import academy.mindswap.rentacar.model.Rental;
-import academy.mindswap.rentacar.model.User;
+import academy.mindswap.rentacar.repository.CarRepository;
 import academy.mindswap.rentacar.repository.RentalRepository;
+import academy.mindswap.rentacar.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class RentalServiceImpl implements RentalService{
+public class RentalServiceImpl implements RentalService {
 
-    RentalRepository rentalRepository;
     RentalConverter rentalConverter = new RentalConverter();
+    private RentalRepository rentalRepository;
+    private UserRepository userRepository;
+    private CarRepository carRepository;
+
+
+    @Autowired
+    public RentalServiceImpl(RentalRepository rentalRepository, UserRepository userRepository, CarRepository carRepository) {
+        this.rentalRepository = rentalRepository;
+        this.userRepository = userRepository;
+        this.carRepository = carRepository;
+    }
+
     @Override
     public RentalDto createRental(RentalCreateDto rentalCreateDto) {
-        Rental rental = rentalConverter.fromRentalCreateDtoToEntity(rentalCreateDto, );
+        Rental rental = rentalConverter.fromRentalCreateDtoToEntity(rentalCreateDto);
         rental = rentalRepository.save(rental);
         return rentalConverter.fromRentalEntityToRentalDto(rental);
     }
-
 
 
     @Override
@@ -32,7 +43,11 @@ public class RentalServiceImpl implements RentalService{
 
     @Override
     public List<RentalDto> getAllRental() {
-        return null;
+        List<Rental> rentals = rentalRepository.findAll();
+        List<RentalDto> rentalDtos = rentals.parallelStream()
+                .map(rentalConverter::fromRentalEntityToRentalDto)
+                .toList();
+        return rentalDtos;
     }
 
     @Override

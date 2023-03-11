@@ -1,9 +1,12 @@
 package academy.mindswap.rentacar.dto;
 
+import academy.mindswap.rentacar.model.Car;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,5 +27,5 @@ public class RentalDto {
     private Long user_id;
 
     @NotBlank(message = "You should have a End Date")
-    private Long car_id;
+    private List<Car> cars = new ArrayList<>();
 }
