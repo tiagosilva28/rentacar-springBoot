@@ -1,6 +1,5 @@
 package academy.mindswap.rentacar.dto;
 
-import academy.mindswap.rentacar.model.Car;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -23,10 +22,10 @@ public class RentalCreateDto {
     private LocalDate endDate;
 
     @NotBlank(message = "You should have a End Date")
-    private Long user_id;
+    private Long userId;
 
     @NotBlank(message = "You should have a End Date")
-    private List<Car> cars;
+    private List<Long> carIds;
 
 
 }
