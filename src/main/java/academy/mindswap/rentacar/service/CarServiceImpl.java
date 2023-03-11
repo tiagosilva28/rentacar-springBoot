@@ -16,10 +16,11 @@ import java.util.List;
 public class CarServiceImpl implements CarService{
 
     private CarRepository carRepository;
-    CarConverter carConverter = new CarConverter();
-    @Autowired
-    public CarServiceImpl(CarRepository carRepository) {
+    private CarConverter carConverter;
+    @Autowired // = injetar automaticamente
+    public CarServiceImpl(CarRepository carRepository, CarConverter carConverter) {
         this.carRepository = carRepository;
+        this.carConverter = carConverter;
     }
     /* @Override
     public Car getCars() {

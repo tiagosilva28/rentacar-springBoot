@@ -7,10 +7,13 @@ import academy.mindswap.rentacar.model.Car;
 import academy.mindswap.rentacar.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static academy.mindswap.rentacar.dto.CarDto.*;
 import static ch.qos.logback.classic.spi.ThrowableProxyVO.build;
 
+
+@Component
 public class CarConverter {
 
     @Autowired
@@ -23,12 +26,6 @@ public class CarConverter {
                 .build();
     }
 
-    public Car fromCarDtoToCarEntity(CarDto carDto){
-        return Car.builder()
-                .brand(carDto.getBrand())
-                .model(carDto.getModel())
-                .build();
-    }
 
     public Car fromCarCreateDtoToEntity(CarCreateDto carCreateDto){
         return Car.builder()

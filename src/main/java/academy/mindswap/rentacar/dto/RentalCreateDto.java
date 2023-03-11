@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,10 +22,10 @@ public class RentalCreateDto {
     private LocalDate endDate;
 
     @NotBlank(message = "You should have a End Date")
-    private Long user_id;
+    private Long userId;
 
     @NotBlank(message = "You should have a End Date")
-    private Long car_id;
+    private List<Long> carIds;
 
 
 }

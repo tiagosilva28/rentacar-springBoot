@@ -4,9 +4,9 @@ import academy.mindswap.rentacar.dto.*;
 import academy.mindswap.rentacar.model.Car;
 import academy.mindswap.rentacar.model.Rental;
 import academy.mindswap.rentacar.model.User;
-import academy.mindswap.rentacar.service.UserService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RentalConverter {
 
@@ -26,13 +26,12 @@ public class RentalConverter {
                 .build();
     }
 
-    public Rental fromRentalCreateDtoToEntity(RentalCreateDto rentalCreateDto, UserService userService){
+    public Rental fromRentalCreateDtoToEntity(RentalCreateDto rentalCreateDto, List<Car> cars, User user){
         return Rental.builder()
                 .startDate(rentalCreateDto.getStartDate())
                 .endDate(rentalCreateDto.getEndDate())
-                .user(userService.getUserById(rentalCreateDto.getUser_id()))
+                .user(user)
+                .cars(cars)
                 .build();
     }
-
-
 }
