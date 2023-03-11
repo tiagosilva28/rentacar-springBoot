@@ -4,6 +4,7 @@ import academy.mindswap.rentacar.model.Car;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class RentalDto {
+public class RentalDto implements Serializable {
 
     @NotBlank(message = "You should have a Start Date")
     private LocalDate startDate;

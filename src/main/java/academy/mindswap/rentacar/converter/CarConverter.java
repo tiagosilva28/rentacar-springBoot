@@ -9,15 +9,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 import static academy.mindswap.rentacar.dto.CarDto.*;
 import static ch.qos.logback.classic.spi.ThrowableProxyVO.build;
 
 
 @Component
 public class CarConverter {
-
-    @Autowired
-    ObjectMapper objectMapper;
 
     public CarDto fromCarEntityToCarDto(Car car) {
         return CarDto.builder()
@@ -32,5 +31,9 @@ public class CarConverter {
                 .brand(carCreateDto.getBrand())
                 .model(carCreateDto.getModel())
                 .build();
+    }
+
+    public List<Long> fromCarsEntityToCardsIds(List<Car> cars) {
+        return cars.stream().map(car -> car.getId()).toList();
     }
 }

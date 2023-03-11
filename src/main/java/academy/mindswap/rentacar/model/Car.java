@@ -26,9 +26,7 @@ public class Car {
     @Column(nullable = false)
     private String model;
 
-
-
-    @ManyToMany(mappedBy = "carIds", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) // for many to many
+    @ManyToMany(mappedBy = "cars", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) // for many to many
     private List<Rental> rentals = new ArrayList<>();
 
 }

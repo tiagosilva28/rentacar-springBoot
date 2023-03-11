@@ -1,7 +1,6 @@
 package academy.mindswap.rentacar.service;
 
 import academy.mindswap.rentacar.converter.RentalConverter;
-import academy.mindswap.rentacar.dto.CarDto;
 import academy.mindswap.rentacar.dto.RentalCreateDto;
 import academy.mindswap.rentacar.dto.RentalDto;
 import academy.mindswap.rentacar.model.Car;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class RentalServiceImpl implements RentalService{
@@ -31,10 +29,10 @@ public class RentalServiceImpl implements RentalService{
         // obter cada car da base de dados
         // passar cars and user para converter
         User user = userRepository.getReferenceById(rentalCreateDto.getUserId());
-        List<Long> carIds = carRepository.findAllById(rentalCreateDto.getCarIds()).stream().map(cars -> cars.getId()).toList();
-        //List<Car> cars = carRepository.findAllById(rentalCreateDto.getCarIds());
+        //List<Long> carIds = carRepository.findAllById(rentalCreateDto.getCarIds()).stream().map(cars -> cars.getId()).toList();
+        List<Car> cars = carRepository.findAllById(rentalCreateDto.getCarIds());
 
-        Rental rental = rentalConverter.fromRentalCreateDtoToEntity(rentalCreateDto, carIds, user);
+        Rental rental = rentalConverter.fromRentalCreateDtoToEntity(rentalCreateDto, cars, user);
         rental = rentalRepository.save(rental);
         return rentalConverter.fromRentalEntityToRentalDto(rental);
     }
@@ -57,8 +55,9 @@ public class RentalServiceImpl implements RentalService{
 
     @Override
     public RentalDto updateRental(Long id, RentalDto rentalDto) {
+        List<Car> cars = carRepository.findAllById(rentalDto.getCarIds());
         Rental rental = rentalRepository.getReferenceById(id);
-        rental.setCarIds(rentalDto.getCarIds());
+        rental.setCars(cars);
         rental.setEndDate(rentalDto.getEndDate());
         rental.setEndDate(rentalDto.getEndDate());
         rentalRepository.save(rental);
