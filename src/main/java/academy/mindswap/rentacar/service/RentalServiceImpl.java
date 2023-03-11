@@ -49,19 +49,20 @@ public class RentalServiceImpl implements RentalService{
     @Override
     public List<RentalDto> getAllRental() {
         List<Rental> rentals = rentalRepository.findAll();
-        //rentalConverter.fromRentalEntityToRentalDto(rentals);
-
-        //return carDtos;
-        return null;
+        List<RentalDto> rentalDtos = rentals.parallelStream().
+                map(rentalConverter::fromRentalEntityToRentalDto).toList();
+        return rentalDtos;
     }
 
     @Override
     public RentalDto updateRental(Long id, RentalDto rental) {
+
         return null;
     }
 
     @Override
     public void deleteRental(Long rentalId) {
+        rentalRepository.deleteById(rentalId);
 
     }
 }
