@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class RentalConverter {
@@ -21,6 +22,9 @@ public class RentalConverter {
                 .endDate(rental.getEndDate())
                 .user_id(rental.getUser().getId())
                 .carIds(carConverter.fromCarsEntityToCardsIds(rental.getCars()))
+                .cars(rental.getCars().stream()
+                        .map(carConverter::fromCarEntityToCarDto)
+                        .collect(Collectors.toList()))
                 //.carIds(List.of(1L,2L))
                 .build();
     }

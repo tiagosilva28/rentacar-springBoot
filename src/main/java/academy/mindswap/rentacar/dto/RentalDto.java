@@ -27,6 +27,7 @@ public class RentalDto implements Serializable {
     @NotBlank(message = "You should have a End Date")
     private Long user_id;
 
-    @NotBlank(message = "You should have a End Date")
+    //@NotBlank(message = "Should have a Car ID")
     private List<Long> carIds;
+    private List <CarDto> cars;
 }
