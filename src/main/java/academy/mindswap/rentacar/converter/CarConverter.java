@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static academy.mindswap.rentacar.dto.CarDto.*;
 import static ch.qos.logback.classic.spi.ThrowableProxyVO.build;
@@ -35,5 +36,11 @@ public class CarConverter {
 
     public List<Long> fromCarsEntityToCardsIds(List<Car> cars) {
         return cars.stream().map(car -> car.getId()).toList();
+    }
+
+    public List<CarDto> fromCarsEntityListToCarsDtoList (List<Car> cars){
+        return cars.stream()
+                .map(this::fromCarEntityToCarDto)
+                .collect(Collectors.toList());
     }
 }

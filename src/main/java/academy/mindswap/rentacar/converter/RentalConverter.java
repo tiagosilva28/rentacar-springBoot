@@ -22,9 +22,7 @@ public class RentalConverter {
                 .endDate(rental.getEndDate())
                 .user_id(rental.getUser().getId())
                 .carIds(carConverter.fromCarsEntityToCardsIds(rental.getCars()))
-                .cars(rental.getCars().stream()
-                        .map(carConverter::fromCarEntityToCarDto)
-                        .collect(Collectors.toList()))
+                .cars(carConverter.fromCarsEntityListToCarsDtoList(rental.getCars()))
                 //.carIds(List.of(1L,2L))
                 .build();
     }
