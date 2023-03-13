@@ -3,6 +3,8 @@ package academy.mindswap.rentacar.service;
 import academy.mindswap.rentacar.converter.RentalConverter;
 import academy.mindswap.rentacar.dto.RentalCreateDto;
 import academy.mindswap.rentacar.dto.RentalDto;
+import academy.mindswap.rentacar.exceptions.CarAlreadyRental;
+import academy.mindswap.rentacar.exceptions.CarDoesntExists;
 import academy.mindswap.rentacar.model.Car;
 import academy.mindswap.rentacar.model.Rental;
 import academy.mindswap.rentacar.model.User;
@@ -30,9 +32,15 @@ public class RentalServiceImpl implements RentalService{
         // obter user da base dados
         // obter cada car da base de dados
         // passar cars and user para converter
+
+
         User user = userRepository.getReferenceById(rentalCreateDto.getUserId());
         //List<Long> carIds = carRepository.findAllById(rentalCreateDto.getCarIds()).stream().map(cars -> cars.getId()).toList();
         List<Car> cars = carRepository.findAllById(rentalCreateDto.getCarIds());
+
+        if (rentalRepository.countOverlappingRentals(rentalCreateDto.getStartDate(),rentalCreateDto.getCarIds())>0) {
+            throw new CarAlreadyRental("Car Already Rented");
+        }
 
         Rental rental = rentalConverter.fromRentalCreateDtoToEntity(rentalCreateDto, cars, user);
         rental = rentalRepository.save(rental);

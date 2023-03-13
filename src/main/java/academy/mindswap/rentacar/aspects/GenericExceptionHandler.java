@@ -1,5 +1,6 @@
 package academy.mindswap.rentacar.aspects;
 
+import academy.mindswap.rentacar.exceptions.CarAlreadyRental;
 import academy.mindswap.rentacar.exceptions.CarDoesntExists;
 import academy.mindswap.rentacar.exceptions.PasswordNotMatch;
 import academy.mindswap.rentacar.exceptions.UserDoesntExists;
@@ -23,6 +24,12 @@ public class GenericExceptionHandler {
     public ResponseEntity<String> handleNotFoundException(Exception ex) {
         logger.error("Resource not found: " + ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Password doesn't match");
+    }
+
+    @ExceptionHandler({CarAlreadyRental.class})
+    public ResponseEntity<String> handleCarAlreadyRental(Exception ex) {
+        logger.error("Resource not found: " + ex);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Car or Cars already Rental");
     }
 
     @ExceptionHandler({CarDoesntExists.class})

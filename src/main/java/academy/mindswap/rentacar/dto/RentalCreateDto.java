@@ -25,7 +25,7 @@ public class RentalCreateDto {
     @NotBlank(message = "You should have a End Date")
     private Long userId;
 
-    @NotBlank(message = "You should have a End Date")
+    @NotBlank(message = "You should have Cars")
     private List<Long> carIds = new ArrayList<>();
 
 
