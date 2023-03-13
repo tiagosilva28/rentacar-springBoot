@@ -12,6 +12,7 @@ import academy.mindswap.rentacar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class RentalServiceImpl implements RentalService{
         Rental rental = rentalRepository.getReferenceById(rentalId);
         return rentalConverter.fromRentalEntityToRentalDto(rental);
     }
+
 
     @Override
     public List<RentalDto> getAllRental() {

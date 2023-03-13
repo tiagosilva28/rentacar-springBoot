@@ -56,6 +56,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(Long id, UserDto userDto) {
+        if (!userRepository.existsById(id)){
+            throw new UserDoesntExists("User Doesn't Exists");
+        }
         User user = userRepository.getReferenceById(id);
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
@@ -68,6 +71,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long userId) {
+        if (!userRepository.existsById(userId)){
+            throw new UserDoesntExists("User Doesn't Exists");
+        }
         userRepository.deleteById(userId);
 
     }

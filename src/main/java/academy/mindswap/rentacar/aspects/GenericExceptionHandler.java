@@ -1,5 +1,6 @@
 package academy.mindswap.rentacar.aspects;
 
+import academy.mindswap.rentacar.exceptions.CarDoesntExists;
 import academy.mindswap.rentacar.exceptions.PasswordNotMatch;
 import academy.mindswap.rentacar.exceptions.UserDoesntExists;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,10 +25,16 @@ public class GenericExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Password doesn't match");
     }
 
+    @ExceptionHandler({CarDoesntExists.class})
+    public ResponseEntity<String> handleCarDoesntExists(Exception ex) {
+        logger.error("Resource not found: " + ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Car doesn't Exists");
+    }
+
     @ExceptionHandler({UserDoesntExists.class})
     public ResponseEntity<String> handleUserDoesntExists(Exception ex) {
         logger.error("Resource not found: " + ex);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User Doesn't exists");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User Doesn't exists");
     }
 
     @ExceptionHandler({EntityNotFoundException.class})
