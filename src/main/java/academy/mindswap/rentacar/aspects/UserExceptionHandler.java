@@ -5,6 +5,7 @@ import academy.mindswap.rentacar.exceptions.BadDenominatorDivision;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -42,8 +43,8 @@ public class UserExceptionHandler {
 
      */
     //error 404
-    @ExceptionHandler(value = ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
+    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
+    public ResponseEntity<String> handleResourceNotFoundException(ChangeSetPersister.NotFoundException ex) {
         logger.error("Unknown Exception error404: " + ex);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resource not found");
     }
