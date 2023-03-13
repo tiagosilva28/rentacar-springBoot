@@ -2,6 +2,7 @@ package academy.mindswap.rentacar.aspects;
 
 
 import academy.mindswap.rentacar.exceptions.BadDenominatorDivision;
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -21,28 +22,38 @@ public class UserExceptionHandler {
 
     Logger logger =  LoggerFactory.getLogger(UserExceptionHandler.class);
 
+    /*
     @ExceptionHandler(value = {MethodArgumentTypeMismatchException.class, NumberFormatException.class, ArithmeticException.class, BadDenominatorDivision.class})
     public ResponseEntity<String> handleDivisionByZero(Exception ex) {
         logger.error("Known Exception: " + ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
     }
 
+     */
 
+    // Test implementation
+    /*
+        @ExceptionHandler(value = {ResourceNotFoundException.class})
+        @ResponseStatus(HttpStatus.NOT_FOUND)
+        public String handleGenericException(ResourceNotFoundException ex) {
+            logger.error("Resource not found: " + ex);
+            return "An error occurred. HAHAHA";
+        }
 
+     */
+    //error 404
+    @ExceptionHandler(value = ResourceNotFoundException.class)
+    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        logger.error("Unknown Exception error404: " + ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resource not found");
+    }
+
+    //error 500 is working
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<String> handleGenericException(Exception ex) {
         logger.error("Unknown Exception: " + ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
     }
-
-
-    @ExceptionHandler(value = {Exception.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String handleGenericException2(Exception ex) {
-        logger.error("Unknown Exception: " + ex);
-        return ("An error occurred.");
-    }
-    // Test implementation
 
 
 

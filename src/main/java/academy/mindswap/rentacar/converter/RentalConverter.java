@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Component
 public class RentalConverter {
 
-    //@Autowired
+
     private CarConverter carConverter = new CarConverter();
 
     public RentalDto fromRentalEntityToRentalDto(Rental rental) {
