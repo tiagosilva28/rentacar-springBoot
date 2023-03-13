@@ -41,6 +41,6 @@ public class CarConverter {
     public List<CarDto> fromCarsEntityListToCarsDtoList (List<Car> cars){
         return cars.stream()
                 .map(car -> fromCarEntityToCarDto(car))
-                .collect(Collectors.toList());
+                .toList();
     }
 }
