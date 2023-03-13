@@ -2,6 +2,8 @@ package academy.mindswap.rentacar.service;
 
 import academy.mindswap.rentacar.dto.UserCreateDto;
 import academy.mindswap.rentacar.dto.UserDto;
+import academy.mindswap.rentacar.exceptions.CarException;
+import academy.mindswap.rentacar.exceptions.PasswordNotMatch;
 import academy.mindswap.rentacar.model.User;
 import academy.mindswap.rentacar.repository.UserRepository;
 import academy.mindswap.rentacar.converter.UserConverter;
@@ -25,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserCreateDto userCreateDto) {
         if (!userCreateDto.getPassword().equals(userCreateDto.getRetypedPassword())) {
-            throw new IllegalArgumentException("Passwords do not match");
+            throw new CarException("Passwords do not match");
         }
 
         User user = userConverter.fromUserCreateDtoToEntity(userCreateDto);
