@@ -13,7 +13,9 @@ import java.util.List;
 @Repository
 public interface RentalRepository extends JpaRepository<Rental, Long> {
 
-    @Query("SELECT COUNT(r) FROM Rental r JOIN r.cars c WHERE r.endDate < :startDate AND c.id = :carId")
-    int countOverlappingRentals(@Param("startDate") LocalDate startDate, @Param("carId") List<Long>  carId);
+
+    @Query("SELECT COUNT(r) FROM Rental r JOIN r.cars c WHERE r.endDate > :startDate AND c.id IN :carIds")
+    int countOverlappingRentals(@Param("startDate") LocalDate startDate, @Param("carIds") List<Long> carIds);
+
 
 }
