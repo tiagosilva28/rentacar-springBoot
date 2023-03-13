@@ -1,6 +1,7 @@
 package academy.mindswap.rentacar.aspects;
 
 import academy.mindswap.rentacar.exceptions.PasswordNotMatch;
+import academy.mindswap.rentacar.exceptions.UserDoesntExists;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,12 @@ public class GenericExceptionHandler {
     public ResponseEntity<String> handleNotFoundException(Exception ex) {
         logger.error("Resource not found: " + ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Password doesn't match");
+    }
+
+    @ExceptionHandler({UserDoesntExists.class})
+    public ResponseEntity<String> handleUserDoesntExists(Exception ex) {
+        logger.error("Resource not found: " + ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User Doesn't exists");
     }
 
     @ExceptionHandler({EntityNotFoundException.class})

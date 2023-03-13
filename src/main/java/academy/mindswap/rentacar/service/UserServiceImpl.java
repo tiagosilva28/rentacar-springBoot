@@ -1,10 +1,9 @@
 package academy.mindswap.rentacar.service;
 
-import academy.mindswap.rentacar.aspects.GenericExceptionHandler;
 import academy.mindswap.rentacar.dto.UserCreateDto;
 import academy.mindswap.rentacar.dto.UserDto;
-import academy.mindswap.rentacar.exceptions.CarException;
 import academy.mindswap.rentacar.exceptions.PasswordNotMatch;
+import academy.mindswap.rentacar.exceptions.UserDoesntExists;
 import academy.mindswap.rentacar.model.User;
 import academy.mindswap.rentacar.repository.UserRepository;
 import academy.mindswap.rentacar.converter.UserConverter;
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserCreateDto userCreateDto) {
         if (!userCreateDto.getPassword().equals(userCreateDto.getRetypedPassword())) {
-            throw new CarException("Passwords do not match");
+            throw new PasswordNotMatch("Passwords do not match");
         }
 
         User user = userConverter.fromUserCreateDtoToEntity(userCreateDto);
@@ -39,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(Long userId) {
         if (!userRepository.existsById(userId)){
-            throw new GenericExceptionHandler().handleNotFoundException("This user doesn't exist");
+            throw new UserDoesntExists("User Doesn't Exists");
         }
         User user = userRepository.getReferenceById(userId);
         return userConverter.fromUserEntityToUserDto(user);
