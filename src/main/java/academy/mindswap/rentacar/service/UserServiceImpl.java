@@ -1,5 +1,6 @@
 package academy.mindswap.rentacar.service;
 
+import academy.mindswap.rentacar.aspects.GenericExceptionHandler;
 import academy.mindswap.rentacar.dto.UserCreateDto;
 import academy.mindswap.rentacar.dto.UserDto;
 import academy.mindswap.rentacar.exceptions.CarException;
@@ -37,6 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Long userId) {
+        if (!userRepository.existsById(userId)){
+            throw new GenericExceptionHandler().handleNotFoundException("This user doesn't exist");
+        }
         User user = userRepository.getReferenceById(userId);
         return userConverter.fromUserEntityToUserDto(user);
     }

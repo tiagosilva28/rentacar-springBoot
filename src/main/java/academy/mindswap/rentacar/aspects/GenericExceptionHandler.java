@@ -1,6 +1,7 @@
 package academy.mindswap.rentacar.aspects;
 
 import academy.mindswap.rentacar.exceptions.PasswordNotMatch;
+import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,11 +23,12 @@ public class GenericExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Password doesn't match");
     }
 
-    @ExceptionHandler({HttpClientErrorException.NotFound.class})
-    public ResponseEntity<String> handleNotFoundException(HttpClientErrorException.NotFound ex) {
+    @ExceptionHandler({EntityNotFoundException.class})
+    public ResponseEntity<String> handleNotFoundException(EntityNotFoundException ex) {
         logger.error("Resource not found: " + ex);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Page Not Found My friend");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found");
     }
+
 
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<String> handleGenericException(Exception ex) {
