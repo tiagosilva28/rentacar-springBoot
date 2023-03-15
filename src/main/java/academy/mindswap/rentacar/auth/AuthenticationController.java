@@ -1,5 +1,6 @@
 package academy.mindswap.rentacar.auth;
 
+import academy.mindswap.rentacar.dto.UserCreateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    /*
+
     private final AuthenticationService service;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
+            @RequestBody UserCreateDto request
     ) {
         return ResponseEntity.ok(service.register(request));
     }
@@ -28,7 +29,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.authenticate(request));
     }
 
-*/
+
 }
 
 
