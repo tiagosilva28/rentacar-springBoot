@@ -24,6 +24,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private Role role;
+
     @Column(nullable = false)
     private String firstName;
 
@@ -35,11 +39,10 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String role;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) // for many to many
     private List<Rental> rentals = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
 
 }

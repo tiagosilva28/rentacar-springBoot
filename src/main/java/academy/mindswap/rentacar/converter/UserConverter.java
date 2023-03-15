@@ -2,6 +2,7 @@ package academy.mindswap.rentacar.converter;
 
 import academy.mindswap.rentacar.dto.UserCreateDto;
 import academy.mindswap.rentacar.dto.UserDto;
+import academy.mindswap.rentacar.model.Role;
 import academy.mindswap.rentacar.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ public class UserConverter {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .password(user.getPassword())
-                .role(user.getRole())
                 .build();
     }
 
@@ -35,7 +35,7 @@ public class UserConverter {
                 .lastName(userDto.getLastName())
                 .email(userDto.getEmail())
                 .password(userDto.getPassword())
-                .role(userDto.getRole())
+                .role(Role.USER)
                 .build();
     }
 

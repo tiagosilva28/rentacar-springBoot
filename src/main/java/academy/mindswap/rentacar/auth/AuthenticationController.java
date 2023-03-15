@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
+    /*
     private final AuthenticationService service;
 
     @PostMapping("/register")
@@ -27,5 +28,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.authenticate(request));
     }
 
-
+*/
 }
+
+

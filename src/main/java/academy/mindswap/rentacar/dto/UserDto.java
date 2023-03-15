@@ -1,5 +1,6 @@
 package academy.mindswap.rentacar.dto;
 
+import academy.mindswap.rentacar.model.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -24,8 +25,11 @@ public class UserDto {
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Invalid email")
     private String email;
 
+    /*
     @NotBlank(message = "Must have role")
-    private String role;
+    private Role role;
+
+     */
 
     @Min(value = 8, message = "Password must be at least 8 characters long")
     @NotBlank (message = "Must have password")
