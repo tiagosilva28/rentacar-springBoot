@@ -42,7 +42,7 @@ public class AdminController {
     }
 
     @GetMapping("/user/updateRole")
-    public ResponseEntity<UserDto> updateUserRole(@NonNull HttpServletRequest request){
+    public ResponseEntity<UserDto> updateUserRoleByToken(@NonNull HttpServletRequest request){
         String jwt = request.getHeader("Authorization").substring(7);
        /* if (bindingResult.hasErrors()) {
 
@@ -53,6 +53,15 @@ public class AdminController {
         }
 */
         userService.updateUserRoleByToken(jwt);
+
+
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping ("/user/{id}")
+    public ResponseEntity<UserDto> updateUserRole(@PathVariable Long id){
+
+        userService.updateUserRole(id);
 
 
         return new ResponseEntity<>(HttpStatus.ACCEPTED);

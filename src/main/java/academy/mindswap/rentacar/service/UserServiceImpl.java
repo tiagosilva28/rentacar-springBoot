@@ -78,6 +78,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUserRole(Long userId) {
+
+        if (!userRepository.existsById(userId)){
+            throw new UserDoesntExists("User Doesn't Exists");
+        }
+
+        User user = userRepository.getReferenceById(userId);
+        user.setRole(Role.ADMIN);
+        userRepository.save(user);
+
+    }
+
+    @Override
     public List<UserDto> getAllUsers() {
         List<User> users = userRepository.findAll();
         List<UserDto> userDtos = users.parallelStream()
@@ -101,6 +114,8 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         return userConverter.fromUserEntityToUserDto(user);
     }
+
+
 
 
     @Override
