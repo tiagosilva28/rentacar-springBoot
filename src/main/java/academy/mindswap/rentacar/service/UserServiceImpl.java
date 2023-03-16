@@ -42,8 +42,8 @@ public class UserServiceImpl implements UserService {
             throw new UserDoesntExists("User Doesn't Exists");
         }
         User user = userRepository.getReferenceById(userId);
-        //SecurityContextHolder.getContext().getAuthentication().getPrincipal()
-        // if user logado != user, throw wxception
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        // if user logado != user, throw exception
         return userConverter.fromUserEntityToUserDto(user);
     }
 

@@ -39,5 +39,7 @@ public class UserDto {
     @NotBlank (message = "Must have password")
     private String retypedPassword;
 
+    private Role role;
+
 
 }

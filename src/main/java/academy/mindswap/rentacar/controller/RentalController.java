@@ -29,11 +29,7 @@ public class RentalController {
         this.rentalService = rentalService;
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<RentalDto>> getAllRentals(){
-        List<RentalDto> rentalDtos = rentalService.getAllRental();
-        return new ResponseEntity<>(rentalDtos, HttpStatus.OK);
-    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<RentalDto> getById(@PathVariable Long id) {
@@ -66,7 +62,7 @@ public class RentalController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<RentalDto> deleteUser(@PathVariable Long id){
+    public ResponseEntity<RentalDto> deleteRental(@PathVariable Long id){
 
         rentalService.deleteRental(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);

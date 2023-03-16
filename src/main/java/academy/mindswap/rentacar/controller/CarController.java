@@ -38,46 +38,6 @@ public class CarController {
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<CarDto> createCar(@Valid @RequestBody CarCreateDto car, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
 
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for (FieldError error : errors) {
-                System.out.println(error.getObjectName() + " - " + error.getDefaultMessage());
-            }
-        }
-        CarDto savedCar = carService.createCar(car);
-        return new ResponseEntity<>(savedCar, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<CarDto> updateCar(@PathVariable Long id, @Valid @RequestBody CarDto carDto, BindingResult bindingResult){
-        if (bindingResult.hasErrors()) {
-
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for (FieldError error : errors) {
-                System.out.println(error.getObjectName() + " - " + error.getDefaultMessage());
-            }
-        }
-
-        CarDto updatedCar = carService.updateCar(id, carDto);
-        return new ResponseEntity<>(updatedCar, HttpStatus.ACCEPTED);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<CarDto> deleteUser(@PathVariable Long id){
-        /*if (bindingResult.hasErrors()) {
-
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for (FieldError error : errors) {
-                System.out.println(error.getObjectName() + " - " + error.getDefaultMessage());
-            }
-        }
-
-         */
-        carService.deleteCar(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
 
 }
