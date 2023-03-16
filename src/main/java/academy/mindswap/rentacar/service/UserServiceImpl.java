@@ -8,6 +8,7 @@ import academy.mindswap.rentacar.model.User;
 import academy.mindswap.rentacar.repository.UserRepository;
 import academy.mindswap.rentacar.converter.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +42,8 @@ public class UserServiceImpl implements UserService {
             throw new UserDoesntExists("User Doesn't Exists");
         }
         User user = userRepository.getReferenceById(userId);
+        //SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+        // if user logado != user, throw wxception
         return userConverter.fromUserEntityToUserDto(user);
     }
 
