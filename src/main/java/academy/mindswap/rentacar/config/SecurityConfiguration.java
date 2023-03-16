@@ -17,7 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 @Configuration
-@EnableGlobalMethodSecurity
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
