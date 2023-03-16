@@ -25,9 +25,9 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     @ResponseStatus(HttpStatus.OK)
-    //@PreAuthorize("hasRole('ADMIN')")
     public List<UserDto> getAllUsers() {
         List<UserDto> userDtos = userService.getAllUsers();
         return userDtos;

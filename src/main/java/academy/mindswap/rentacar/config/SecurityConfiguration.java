@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 @Configuration
+@EnableGlobalMethodSecurity
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
@@ -33,10 +34,6 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                     .requestMatchers("/api/v1/auth/**")
                     .permitAll()
-                .requestMatchers("/user/admin/**")
-                    .hasAuthority("ADMIN")
-                .requestMatchers("/user/**")
-                    .hasAuthority("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
