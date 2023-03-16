@@ -25,15 +25,16 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("")
+    @GetMapping("/admin")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     public List<UserDto> getAllUsers() {
         List<UserDto> userDtos = userService.getAllUsers();
         return userDtos;
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@authorized.isUser(#id)")
     public ResponseEntity<UserDto> getById(@PathVariable Long id) {
         UserDto user = userService.getUserById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
