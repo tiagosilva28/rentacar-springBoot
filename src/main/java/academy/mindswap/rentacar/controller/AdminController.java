@@ -4,14 +4,18 @@ import academy.mindswap.rentacar.dto.CarCreateDto;
 import academy.mindswap.rentacar.dto.CarDto;
 import academy.mindswap.rentacar.dto.RentalDto;
 import academy.mindswap.rentacar.dto.UserDto;
+import academy.mindswap.rentacar.model.User;
 import academy.mindswap.rentacar.service.CarService;
 import academy.mindswap.rentacar.service.RentalService;
 import academy.mindswap.rentacar.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.Data;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +35,27 @@ public class AdminController {
 
     @GetMapping("/user")
     @ResponseStatus(HttpStatus.OK)
-    //@PreAuthorize("hasRole('ADMIN')")
+    //@Secured("ADMIN")
     public List<UserDto> getAllUsers() {
         List<UserDto> userDtos = userService.getAllUsers();
         return userDtos;
+    }
+
+    @GetMapping("/user/updateRole")
+    public ResponseEntity<UserDto> updateUserRole(@NonNull HttpServletRequest request){
+        String jwt = request.getHeader("Authorization").substring(7);
+       /* if (bindingResult.hasErrors()) {
+
+            List<FieldError> errors = bindingResult.getFieldErrors();
+            for (FieldError error : errors) {
+                System.out.println(error.getObjectName() + " - " + error.getDefaultMessage());
+            }
+        }
+*/
+        userService.updateUserRoleByToken(jwt);
+
+
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/car")

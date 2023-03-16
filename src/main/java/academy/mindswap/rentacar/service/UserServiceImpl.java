@@ -5,7 +5,9 @@ import academy.mindswap.rentacar.dto.UserDto;
 import academy.mindswap.rentacar.exceptions.PasswordNotMatch;
 import academy.mindswap.rentacar.exceptions.UserDoesntExists;
 import academy.mindswap.rentacar.exceptions.UserNotMatch;
+import academy.mindswap.rentacar.model.Role;
 import academy.mindswap.rentacar.model.User;
+import academy.mindswap.rentacar.repository.TokenRepository;
 import academy.mindswap.rentacar.repository.UserRepository;
 import academy.mindswap.rentacar.converter.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
+    @Autowired
+    TokenRepository tokenRepository;
 
     UserConverter userConverter = new UserConverter();
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
+
     }
 
     @Override
@@ -53,6 +58,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto updateUserRoleByToken(String token) {
+
+        Long userLoggedId = tokenRepository.findByToken(token).get().getUser().getId();
+        User userLogged = userRepository.getReferenceById(userLoggedId);
+        userLogged.setRole(Role.ADMIN);
+        userRepository.save(userLogged);
+
+        //User user = userRepository.getReferenceById(userId);
+      /*  User logInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!logInUser.getId().equals(user.getId())){
+            throw new UserNotMatch("You are trying to access other User");
+        }
+
+       */
+
+        // if user logado != user, throw exception
+        return userConverter.fromUserEntityToUserDto(userLogged);
+    }
+
+    @Override
     public List<UserDto> getAllUsers() {
         List<User> users = userRepository.findAll();
         List<UserDto> userDtos = users.parallelStream()
@@ -76,6 +101,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         return userConverter.fromUserEntityToUserDto(user);
     }
+
 
     @Override
     public void deleteUser(Long userId) {

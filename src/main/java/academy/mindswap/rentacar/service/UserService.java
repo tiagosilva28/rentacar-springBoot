@@ -11,9 +11,12 @@ public interface UserService {
 
     UserDto getUserById(Long userId);
 
+    UserDto updateUserRoleByToken(String token);
+
     List<UserDto> getAllUsers();
 
     UserDto updateUser(Long id, UserDto user);
+
 
 
     void deleteUser(Long userId);
