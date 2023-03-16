@@ -4,6 +4,7 @@ import academy.mindswap.rentacar.dto.UserCreateDto;
 import academy.mindswap.rentacar.dto.UserDto;
 import academy.mindswap.rentacar.exceptions.PasswordNotMatch;
 import academy.mindswap.rentacar.exceptions.UserDoesntExists;
+import academy.mindswap.rentacar.exceptions.UserNotMatch;
 import academy.mindswap.rentacar.model.User;
 import academy.mindswap.rentacar.repository.UserRepository;
 import academy.mindswap.rentacar.converter.UserConverter;
@@ -42,7 +43,11 @@ public class UserServiceImpl implements UserService {
             throw new UserDoesntExists("User Doesn't Exists");
         }
         User user = userRepository.getReferenceById(userId);
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        User logInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!logInUser.getId().equals(user.getId())){
+            throw new UserNotMatch("You are trying to access other User");
+        }
+
         // if user logado != user, throw exception
         return userConverter.fromUserEntityToUserDto(user);
     }

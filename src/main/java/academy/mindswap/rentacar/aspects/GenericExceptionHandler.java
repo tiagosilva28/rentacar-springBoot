@@ -1,9 +1,6 @@
 package academy.mindswap.rentacar.aspects;
 
-import academy.mindswap.rentacar.exceptions.CarAlreadyRental;
-import academy.mindswap.rentacar.exceptions.CarDoesntExists;
-import academy.mindswap.rentacar.exceptions.PasswordNotMatch;
-import academy.mindswap.rentacar.exceptions.UserDoesntExists;
+import academy.mindswap.rentacar.exceptions.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +16,13 @@ import org.springframework.web.client.HttpClientErrorException;
 public class GenericExceptionHandler {
 
     Logger logger =  LoggerFactory.getLogger(GenericExceptionHandler.class);
+
+
+    @ExceptionHandler({UserNotMatch.class})
+    public ResponseEntity<String> handleUserNotMatch(Exception ex) {
+        logger.error("Resource not found: " + ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("You are trying to access other User");
+    }
 
     @ExceptionHandler({PasswordNotMatch.class})
     public ResponseEntity<String> handleNotFoundException(Exception ex) {
