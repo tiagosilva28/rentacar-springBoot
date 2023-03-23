@@ -31,11 +31,14 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
+                .requestMatchers("/v3/**", "/swagger-ui/**")
+                .permitAll()
                     .requestMatchers("/api/v1/auth/**")
                     .permitAll()
-                .requestMatchers("/admin/**")
+                               .requestMatchers("/admin/**")
                     .hasAuthority("ADMIN")
                 .requestMatchers("/user/**", "/car/**","/rental/**")
+                //.hasAnyAuthority("USER", "ADMIN")
                     .hasAuthority("USER")
                 .anyRequest()
                 .authenticated()
@@ -54,4 +57,6 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+
+
 }
