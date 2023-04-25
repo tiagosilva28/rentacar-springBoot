@@ -18,25 +18,15 @@ public class CarServiceImpl implements CarService{
 
     private CarRepository carRepository;
     private CarConverter carConverter;
+
     @Autowired // = injetar automaticamente
     public CarServiceImpl(CarRepository carRepository, CarConverter carConverter) {
         this.carRepository = carRepository;
         this.carConverter = carConverter;
     }
-    /* @Override
-    public Car getCars() {
-        return Car.builder()
-                .id(1L)
-                .brand("Mini")
-                .model("Clubman")
-                .build();
-    }
-
-    */
 
     @Override
     public CarDto createCar(CarCreateDto carCreateDto) {
-
         Car car = carConverter.fromCarCreateDtoToEntity(carCreateDto);
         car = carRepository.save(car);
         return carConverter.fromCarEntityToCarDto(car);
