@@ -44,9 +44,10 @@ public class CarServiceImpl implements CarService{
     @Override
     public List<CarDto> getAllCars() {
         List<Car> cars = carRepository.findAll();
-        List<CarDto> carDtos = cars.parallelStream()
+        List<CarDto> carDtos = cars.stream()
                 .map(carConverter::fromCarEntityToCarDto)
                 .toList();
+
         return carDtos;
     }
 
